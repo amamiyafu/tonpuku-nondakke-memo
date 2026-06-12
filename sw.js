@@ -1,4 +1,4 @@
-const CACHE_NAME = "tonpuku-count-memo-cache-v2";
+const CACHE_NAME = "tonpuku-count-memo-cache-v3";
 const ASSETS = [
   "./",
   "./index.html",
@@ -29,6 +29,24 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") {
+    return;
+  }
+
+  const requestUrl = new URL(event.request.url);
+  const isFreshFirst =
+    event.request.mode === "navigate"
+    || requestUrl.pathname.endsWith("/index.html")
+    || requestUrl.pathname.endsWith("/manifest.json")
+    || requestUrl.pathname.endsWith("/sw.js");
+
+  if (isFreshFirst) {
+    event.respondWith(
+      fetch(event.request).then((response) => {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+        return response;
+      }).catch(() => caches.match(event.request).then((cached) => cached || caches.match("./index.html")))
+    );
     return;
   }
 
