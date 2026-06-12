@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#f7d8dc">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="頓服カウントメモ">
+    <title>頓服カウントメモ</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icon-180.png">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <h1>頓服カウントメモ</h1>
+        <p>飲んだら押すだけ。<br>今日の回数と時間をすぐ確認できます。</p>
+      </header>
+
+      <section class="today-card" aria-labelledby="today-title">
+        <div class="today-date" id="todayDate"></div>
+        <div class="count-block">
+          <p id="today-title">今日の回数</p>
+          <strong id="todayCount">0回</strong>
+        </div>
+        <div class="remaining-block" id="remainingText">あと3回</div>
+        <div class="last-time">
+          <span>最後に飲んだ時間</span>
+          <strong id="lastTime">--:--</strong>
+        </div>
+        <p class="limit-note" id="limitNote" hidden>
+          設定した上限を超えています。服用について不安がある場合は、医師・薬剤師の指示を確認してください。
+        </p>
+      </section>
+
+      <button class="taken-button" id="takenButton" type="button">飲んだ</button>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+      <section class="settings-card" aria-labelledby="settingsTitle">
+        <label for="dailyLimit" id="settingsTitle">1日の上限回数</label>
+        <select id="dailyLimit" aria-label="1日の上限回数"></select>
+      </section>
+
+      <section class="calendar-card" aria-labelledby="calendarTitle">
+        <div class="calendar-head">
+          <button class="month-button" id="prevMonth" type="button" aria-label="前月">‹</button>
+          <h2 id="calendarTitle"></h2>
+          <button class="month-button" id="nextMonth" type="button" aria-label="翌月">›</button>
+        </div>
+        <div class="week-row" aria-hidden="true">
+          <span>日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </section>
+
+      <section class="detail-card" id="detailCard" aria-labelledby="detailTitle">
+        <div class="detail-head">
+          <div>
+            <h2 id="detailTitle"></h2>
+            <p id="detailTotal">合計 0回</p>
+          </div>
+        </div>
+        <div class="record-list" id="recordList"></div>
+      </section>
+
+      <section class="backup-card" aria-labelledby="backupTitle">
+        <h2 id="backupTitle">バックアップ</h2>
+        <p>記録を保存したり復元できます。<br>大切な記録がなくならないように、定期的に保存をお願いします。</p>
+        <div class="backup-actions">
+          <button class="backup-button" id="exportButton" type="button">保存</button>
+          <button class="backup-button" id="importButton" type="button">復元</button>
+        </div>
+        <input id="importFile" type="file" accept="application/json,.json" hidden>
+      </section>
+    </main>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
