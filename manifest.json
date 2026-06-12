@@ -1,6 +1,6 @@
 {
-  "name": "頓服カウントメモ",
-  "short_name": "頓服メモ",
+  "name": "頓服飲んだっけメモ",
+  "short_name": "頓服飲んだっけメモ",
   "description": "飲んだ回数と時刻をすぐ確認するためのPWAメモアプリです。",
   "start_url": "./index.html",
   "scope": "./",
